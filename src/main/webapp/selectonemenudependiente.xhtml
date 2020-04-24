@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <f:view contentType="text/html">
+    <h:head>
+      <title>s</title>
+    </h:head>
+    <h:body>
+      <h:form id="frmPrincipal">
+        <h:panelGrid  columns="4" cellpadding="5" cellspacing="5">
+          <p:outputLabel  value="Facultad: "/>
+          <p:selectOneMenu id="somFacultad"
+                           value="#{facultadController.facultad}"
+                           converter="#{facultadConverter}"
+                           >
+            <f:selectItem itemLabel="--Seleccionar--"/>
+            <f:selectItems value="#{facultadController.lstFacultades}"
+                           var="f" 
+                           itemLabel="#{f.nombre}"
+                           itemValue="#{f}"/>
+            <p:ajax event="change" 
+                    process=":frmPrincipal:somFacultad"
+                    update=":frmPrincipal:somCarrera" 
+                    listener="#{facultadController.handleFacultad()}"/>
+
+          </p:selectOneMenu>
+
+          <p:outputLabel  value="Carrera "/>
+          <p:selectOneMenu id="somCarrera"
+                           value="#{facultadController.carrera}"
+                           converter="#{carreraConverter}"
+                           >
+            <f:selectItem itemLabel="--Seleccionar--"/>
+            <f:selectItems value="#{facultadController.lstCarreras}"
+                           var="c" 
+                           itemLabel="#{c.nombre}"
+                           itemValue="#{c}"/>
+          </p:selectOneMenu>
+        </h:panelGrid>
+      </h:form>
+    </h:body>
+  </f:view>
+</html>
+

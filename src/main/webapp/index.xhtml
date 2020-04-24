@@ -2,13 +2,30 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
   <h:head>
-    <title>Facelet Title</title>
+    <title>Listado de ejemplos</title>
   </h:head>
   <h:body>
     <h:form>
-      <p:commandButton value="Guardar"/>
+      <p:dataTable value="#{menuController.lstMenu}" var="menu" rowKey="#{menu.id}" reflow="true">
+        <f:facet name="header">
+          Listado de ejemplos
+        </f:facet>
+        <p:column headerText="#" style="text-align: center;">
+          <h:outputText value="#{menu.id}"/>
+        </p:column>
+        <p:column headerText="Componente">
+          <h:outputText value="#{menu.titulo}"/>
+        </p:column>
+        <p:column style="text-align: center;">
+          <p:linkButton value="Ver ejemplo" target="_blank" outcome="#{menu.ruta}" />
+        </p:column>
+        <f:facet name="footer">
+          Total de ejemplos : #{menuController.lstMenu.size()}
+        </f:facet>
+      </p:dataTable>
     </h:form>
   </h:body>
 </html>

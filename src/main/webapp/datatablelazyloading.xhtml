@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+  <h:head>
+    <title>DataTable Lazy Loading</title>
+  </h:head>
+  <h:body>
+    <h:form id="frmPrincipal">
+      <p:dataTable id="tblCarreras"
+                   value="#{carreraController.lstCarrerasLazyModel}" 
+                   var="c"
+                   rowKey="#{c.idcarrera}"
+                   rows="10"
+                   reflow="true"
+                   paginator="true"
+                   paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                   currentPageReportTemplate="{startRecord} a {endRecord} de {totalRecords} registros"
+                   rowsPerPageTemplate="5,10,15"
+                   lazy="true"
+                   emptyMessage="Su búsqueda no arrojó resultados">
+        <f:facet name="header">
+          Listado de carreras
+        </f:facet>
+        <p:column headerText="id" style="width: 5%;text-align: center;">
+          <h:outputText value="#{c.idcarrera}"/>
+        </p:column>
+        <p:column id="nombre" headerText="Nombre" filterBy="#{c.nombre}">
+          <h:outputText value="#{c.nombre}"/>
+        </p:column>
+        <p:column id="idfacultad" headerText="Facultad" 
+                  style="text-align: right;">
+          <h:outputText value="#{c.idfacultad.nombre}"/>
+        </p:column>
+        <f:facet name="footer">
+          Total de registros: #{carreraController.lstCarrerasLazyModel.rowCount}
+        </f:facet>
+      </p:dataTable>
+    </h:form>
+  </h:body>
+</html>
+

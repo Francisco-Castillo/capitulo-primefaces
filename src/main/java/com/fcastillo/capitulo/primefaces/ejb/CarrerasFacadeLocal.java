@@ -7,7 +7,9 @@ package com.fcastillo.capitulo.primefaces.ejb;
 
 import com.fcastillo.capitulo.primefaces.Carreras;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.Local;
+import org.primefaces.model.SortOrder;
 
 /**
  *
@@ -26,8 +28,15 @@ public interface CarrerasFacadeLocal {
 
     List<Carreras> findAll();
 
+    List<Carreras> findByFacultad(int idfacultad);
+
     List<Carreras> findRange(int[] range);
 
     int count();
-    
+
+    List<Carreras> findByParams(int start, int size, String sortField, SortOrder sortOrder, Map<String, Object> filters);
+
+    int getFilteredRowCount(Map<String, Object> filters);
+
+    List<Carreras> findByNameLike(String nombrecarrera);
 }

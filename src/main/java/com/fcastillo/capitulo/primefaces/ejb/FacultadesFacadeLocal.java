@@ -29,5 +29,7 @@ public interface FacultadesFacadeLocal {
     List<Facultades> findRange(int[] range);
 
     int count();
-    
+
+    List<Facultades> findByNameLike(String nombrefacultad);
+
 }
