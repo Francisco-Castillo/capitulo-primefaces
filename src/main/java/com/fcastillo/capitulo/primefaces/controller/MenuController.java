@@ -44,6 +44,7 @@ public class MenuController implements Serializable {
         lstMenu.add(new Menu(5, "SelectOneMenu simple", "selectonemenu"));
         lstMenu.add(new Menu(6, "SelectOneMenu dependiente con ajax", "selectonemenudependiente"));
         lstMenu.add(new Menu(7, "Grafico de barras", "graficobarras"));
+        lstMenu.add(new Menu(8, "Grafico de pastel", "graficopastel"));
     }
 
 }

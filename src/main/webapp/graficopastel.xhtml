@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+  <h:head>
+    <title>Gráfico de torta</title>
+  </h:head>
+  <h:body>
+    <h:form id="frmPrincipal">
+      <p:chart type="pie" model="#{graficosController.pieModel}" responsive="true"/>
+    </h:form>
+    <script>
+
+      function skinPie() {
+        this.cfg.shadow = false;
+        this.cfg.title = '';
+        this.cfg.seriesColors = ['#EA9624', '#5BA5D8', '#B7D666', '#DA5E5B'];
+        this.cfg.grid = {
+          background: '#ffffff',
+          borderColor: '#ffffff',
+          gridLineColor: '#F5F5F5',
+          shadow: false
+        };
+        this.cfg.axesDefaults = {
+          rendererOptions: {
+            textColor: '#666F77',
+          }
+        };
+        this.cfg.seriesDefaults = {
+          renderer: $.jqplot.PieRenderer,
+          shadow: false,
+          lineWidth: 1,
+          markerOptions: {
+            shadow: false,
+            size: 7,
+            style: 'circle'
+          }
+        }
+      }
+    </script>
+  </h:body>
+</html>
+
