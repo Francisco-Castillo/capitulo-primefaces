@@ -38,11 +38,12 @@ public class MenuController implements Serializable {
 
     private void iniciar() {
         lstMenu.add(new Menu(1, "Autocomplete", "autocomplete"));
-        lstMenu.add(new Menu(1, "Autocomplete con insert", "autocompleteinsert"));
-        lstMenu.add(new Menu(2, "DataTable Simple", "datatable"));
-        lstMenu.add(new Menu(3, "DataTable con carga perezosa", "datatablelazyloading"));
-        lstMenu.add(new Menu(4, "SelectOneMenu simple", "selectonemenu"));
-        lstMenu.add(new Menu(5, "SelectOneMenu dependiente con ajax", "selectonemenudependiente"));
+        lstMenu.add(new Menu(2, "Autocomplete con insert", "autocompleteinsert"));
+        lstMenu.add(new Menu(3, "DataTable Simple", "datatable"));
+        lstMenu.add(new Menu(4, "DataTable con carga perezosa", "datatablelazyloading"));
+        lstMenu.add(new Menu(5, "SelectOneMenu simple", "selectonemenu"));
+        lstMenu.add(new Menu(6, "SelectOneMenu dependiente con ajax", "selectonemenudependiente"));
+        lstMenu.add(new Menu(7, "Grafico de barras", "graficobarras"));
     }
 
 }
