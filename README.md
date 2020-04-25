@@ -38,7 +38,7 @@ Una vez clonado debe crear una base de datos
 CREATE DATABASE Universidad;
 ```
 
-## Restaurar script 
+## Restaurar script :scroll:
 
 Dirijase al directorio /src/main/resources en donde encontrara el script [`universidad.sql`](src/main/resources/universidad.sql)
 
@@ -84,7 +84,7 @@ Para ello haga clic en el botón con la leyenda "Ping" que se encuentra dentro d
   * 3 - Nombre Pool : *universidadPool*
   * 4 - Click en aceptar
   
-## Compilar e instalar dependencias
+## Compilar e instalar dependencias :wrench:
 
 Abrir una terminal y ubicarse en la raiz del proyecto. Alli ingresar el siguiente comando.
 
@@ -101,5 +101,8 @@ cd directorio/payara/bin/
 ```
 ## Probar aplicación :earth_americas:
 Abrir un navegador web e ingresar la siguiente direccion: http://localhost:8080/capitulo-primefaces/
+
+## Autor :black_nib:
+- Francisco Castillo - cefrancastillo@gmail.com
 
 
