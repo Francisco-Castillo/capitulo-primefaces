@@ -9,6 +9,7 @@ Este capitulo contiene ejemplos de algunos componentes de la libreria Primefaces
 - Autocomplete con inserción de nuevos registros
 - DataTable simple
 - Datatable con carga perezosa, paginación y filtrado
+- DataTable con texto condicional y filas coloreadas
 - SelectOneMenu
 - SelectOneMenu dependiente o relacionado
 - Gráfico de barras
