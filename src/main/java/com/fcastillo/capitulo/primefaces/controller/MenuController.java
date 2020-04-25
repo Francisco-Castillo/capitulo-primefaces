@@ -41,10 +41,11 @@ public class MenuController implements Serializable {
         lstMenu.add(new Menu(2, "Autocomplete con insert", "autocompleteinsert"));
         lstMenu.add(new Menu(3, "DataTable Simple", "datatable"));
         lstMenu.add(new Menu(4, "DataTable con carga perezosa", "datatablelazyloading"));
-        lstMenu.add(new Menu(5, "SelectOneMenu simple", "selectonemenu"));
-        lstMenu.add(new Menu(6, "SelectOneMenu dependiente con ajax", "selectonemenudependiente"));
-        lstMenu.add(new Menu(7, "Grafico de barras", "graficobarras"));
-        lstMenu.add(new Menu(8, "Grafico de pastel", "graficopastel"));
+        lstMenu.add(new Menu(5, "DataTable con filas coloreadas y texto condicional", "datatablecolorfilas"));
+        lstMenu.add(new Menu(6, "SelectOneMenu simple", "selectonemenu"));
+        lstMenu.add(new Menu(7, "SelectOneMenu dependiente con ajax", "selectonemenudependiente"));
+        lstMenu.add(new Menu(8, "Grafico de barras", "graficobarras"));
+        lstMenu.add(new Menu(9, "Grafico de pastel", "graficopastel"));
     }
 
 }

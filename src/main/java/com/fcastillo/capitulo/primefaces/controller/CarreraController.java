@@ -62,7 +62,7 @@ public class CarreraController implements Serializable {
         lstCarrerasLazyModel = new LazyDataModel<Carreras>() {
             @Override
             public List<Carreras> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-                List<Carreras> lstCarreras = carreraFacade.findByParams(first, pageSize, sortField, sortOrder, filters);
+                List<Carreras> lstCarreras = carreraFacade.findByParams(first, pageSize, sortField, sortOrder.ASCENDING, filters);
                 lstCarrerasLazyModel.setRowCount(carreraFacade.getFilteredRowCount(filters));
                 return lstCarreras;
             }

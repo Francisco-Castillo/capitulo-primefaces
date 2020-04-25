@@ -30,7 +30,7 @@
         <p:column id="nombre" headerText="Nombre" filterBy="#{c.nombre}">
           <h:outputText value="#{c.nombre}"/>
         </p:column>
-        <p:column id="idfacultad" headerText="Facultad" 
+        <p:column id="idfacultad" headerText="Facultad" filterBy="#{c.idfacultad}"
                   style="text-align: right;">
           <h:outputText value="#{c.idfacultad.nombre}"/>
         </p:column>
@@ -39,6 +39,8 @@
         </f:facet>
       </p:dataTable>
     </h:form>
+    <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/all.min-jsf.css" />
+    <h:outputStylesheet library="webjars" name="font-awesome/5.12.0/css/v4-shims.min-jsf.css" />
   </h:body>
 </html>
 
