@@ -2,7 +2,19 @@
 
 Este capitulo contiene ejemplos de algunos componentes de la libreria Primefaces
 
-## Prerrequisitos
+![estado](https://img.shields.io/badge/estado-activo-success) ![basededatos](https://img.shields.io/badge/base%20de%20datos-si-success) ![commits](https://img.shields.io/badge/commits-13-informational)
+
+## Contenido
+- Autocomplete
+- Autocomplete con inserción de nuevos registros
+- DataTable simple
+- Datatable con carga perezosa, paginación y filtrado
+- SelectOneMenu
+- SelectOneMenu dependiente o relacionado
+- Gráfico de barras
+- Gráfico de torta
+
+## Pre-requisitos :pushpin:
 
 * Instalar [AdoptOpenJDK 8](https://adoptopenjdk.net/)
 * Instalar [Git](https://git-scm.com/)
@@ -28,7 +40,7 @@ CREATE DATABASE Universidad;
 
 ## Restaurar script 
 
-Dirijase al directorio /src/main/resources
+Dirijase al directorio /src/main/resources en donde encontrara el script [`universidad.sql`](src/main/resources/universidad.sql)
 
 ```
 cd directorio/proyecto/
@@ -36,7 +48,7 @@ cd capitulo-primefaces/
 cd src/main/resources/
 mysql -unombreUsuario -pPasswordUsuario Universidad < universidad.sql
 ```
-## Levantar Payara Server
+## Levantar Payara Server :rocket:
 
 ```
 cd directorio/instalacion/payaraServer/bin/
@@ -87,7 +99,7 @@ Abrir una terminal y ubicarse en el directorio bin de payara.
 cd directorio/payara/bin/
 ./asadmin deploy /directorio/proyecto/target/capitulo-primefaces.war
 ```
-## Probar aplicacion
+## Probar aplicación :earth_americas:
 Abrir un navegador web e ingresar la siguiente direccion: http://localhost:8080/capitulo-primefaces/
 
 
