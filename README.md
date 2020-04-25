@@ -72,6 +72,15 @@ Para ello haga clic en el botón con la leyenda "Ping" que se encuentra dentro d
   * 3 - Nombre Pool : *universidadPool*
   * 4 - Click en aceptar
   
-## Desplegar *.war* en Payara Server
+## Compilar e instalar dependencias
+
+Abrir una terminal y ubicarse en la raiz del proyecto. Alli ingresar el siguiente comando.
+
+```
+mvn clean install
+```
+se creará un directorio target con el archivo *capitulo-primefaces-1.0-SNAPSHOT.war*
+  
+## Desplegar *.war*
 
 
