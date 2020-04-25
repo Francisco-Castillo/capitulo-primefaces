@@ -79,8 +79,14 @@ Abrir una terminal y ubicarse en la raiz del proyecto. Alli ingresar el siguient
 ```
 mvn clean install
 ```
-se creará un directorio target con el archivo *capitulo-primefaces-1.0-SNAPSHOT.war*
+se creará un directorio target con el archivo *capitulo-primefaces.war*
   
 ## Desplegar *.war*
+Abrir una terminal y ubicarse en el directorio bin de payara.
+```
+cd directorio/payara/bin/
+./asadmin deploy /directorio/proyecto/target/capitulo-primefaces.war
+```
+
 
 
