@@ -87,6 +87,7 @@ Abrir una terminal y ubicarse en el directorio bin de payara.
 cd directorio/payara/bin/
 ./asadmin deploy /directorio/proyecto/target/capitulo-primefaces.war
 ```
-
+## Probar aplicacion
+Abrir un navegador web e ingresar la siguiente direccion: http://localhost:8080/capitulo-primefaces/
 
 
