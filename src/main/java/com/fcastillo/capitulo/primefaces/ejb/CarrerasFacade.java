@@ -125,7 +125,6 @@ public class CarrerasFacade extends AbstractFacade<Carreras> implements Carreras
 
             if (listaPredicados.size() > 0) {
                 listaPredicados.forEach((p) -> {
-                    System.out.println("Predicado : " + p.getExpressions().toString());
                     criteriaQuery.where(listaPredicados.toArray(new Predicate[listaPredicados.size()]));
                 });
             }
