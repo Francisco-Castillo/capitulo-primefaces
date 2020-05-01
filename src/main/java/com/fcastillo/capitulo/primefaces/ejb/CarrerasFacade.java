@@ -56,44 +56,92 @@ public class CarrerasFacade extends AbstractFacade<Carreras> implements Carreras
     public List<Carreras> findByParams(int start, int size, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
         CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
         CriteriaQuery<Carreras> criteriaQuery = criteriaBuilder.createQuery(Carreras.class);
-        Root<Carreras> root = criteriaQuery.from(Carreras.class);
-        CriteriaQuery<Carreras> select = criteriaQuery.select(root);
 
-        Join<Carreras, Facultades> facultad = root.join("idfacultad");
+        Root<Carreras> raiz = criteriaQuery.from(Carreras.class);
+        Join<Carreras, Facultades> joinFacultad = raiz.join("idfacultad", JoinType.INNER);
 
-        // Ordenamiento
-        if (sortField != null) {
-            criteriaQuery.orderBy(sortOrder == SortOrder.DESCENDING ? criteriaBuilder.asc(root.get(sortField)) : criteriaBuilder.desc(root.get(sortField)));
-        }
+        List<Predicate> listaPredicados = new ArrayList<>();
+        List<Carreras> lstCarreras = new ArrayList<>();
 
-        if (filters != null && filters.size() > 0) {
-            List<Predicate> predicados = new ArrayList<>();
-
-            filters.entrySet().forEach((entry) -> {
-                String key = entry.getKey();
-                Object val = entry.getValue();
-                if (!(val == null)) {
-
-                    // Construimos la expresion con los predicados que si existan
-                    Expression<String> expresion = root.get(key).as(String.class);
-                    Predicate predicado = criteriaBuilder.like(criteriaBuilder.lower(expresion), "%" + val.toString().toLowerCase() + "%");
-                    predicados.add(predicado);
-
+        criteriaQuery.select(raiz);
+        try {
+            String nombreFacultad = "";
+            String nombreCarrera = "";
+            if (filters != null && filters.size() > 0) {
+                if (filters.get("nombre") != null) {
+                    nombreCarrera = (String) filters.get("nombre");
+                    Predicate predicadoNombre = criteriaBuilder.like(criteriaBuilder.lower(raiz.get("nombre")), "%" + nombreCarrera.toLowerCase() + "%");
+                    listaPredicados.add(predicadoNombre);
                 }
-            });
-            if (predicados.size() > 0) {
-                criteriaQuery.where(criteriaBuilder.and(predicados.toArray(new Predicate[predicados.size()])));
-            }
-        }
-        // Creamos la consulta
-        TypedQuery<Carreras> consulta = em.createQuery(select);
-        consulta.setFirstResult(start);
-        consulta.setMaxResults(size);
 
-        return consulta.getResultList();
+                if (filters.get("idfacultad") != null) {
+                    nombreFacultad = (String) filters.get("idfacultad");
+                    Predicate predicadoFacultad = criteriaBuilder.like(criteriaBuilder.lower(joinFacultad.get("nombre")), "%" + nombreFacultad.toLowerCase() + "%");
+                    listaPredicados.add(predicadoFacultad);
+                }
+
+                if (listaPredicados.size() > 0) {
+                    listaPredicados.forEach((p) -> {
+                        System.out.println("Predicado : " + p.getExpressions().toString());
+                        criteriaQuery.where(listaPredicados.toArray(new Predicate[listaPredicados.size()]));
+                    });
+                }
+            }
+
+            TypedQuery<Carreras> query = em.createQuery(criteriaQuery);
+            query.setFirstResult(start);
+            query.setMaxResults(size);
+
+            lstCarreras = query.getResultList();
+
+        } catch (Exception e) {
+            System.out.println("Error : " + e.getMessage());
+        }
+        return lstCarreras;
 
     }
 
+//    @Override
+//    public List<Carreras> findByParams(int start, int size, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+//        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+//        CriteriaQuery<Carreras> criteriaQuery = criteriaBuilder.createQuery(Carreras.class);
+//        Root<Carreras> root = criteriaQuery.from(Carreras.class);
+//        CriteriaQuery<Carreras> select = criteriaQuery.select(root);
+//
+//        Join<Carreras, Facultades> facultad = root.join("idfacultad");
+//
+//        // Ordenamiento
+//        if (sortField != null) {
+//            criteriaQuery.orderBy(sortOrder == SortOrder.DESCENDING ? criteriaBuilder.asc(root.get(sortField)) : criteriaBuilder.desc(root.get(sortField)));
+//        }
+//
+//        if (filters != null && filters.size() > 0) {
+//            List<Predicate> predicados = new ArrayList<>();
+//
+//            filters.entrySet().forEach((entry) -> {
+//                String key = entry.getKey();
+//                Object val = entry.getValue();
+//                if (!(val == null)) {
+//
+//                    // Construimos la expresion con los predicados que si existan
+//                    Expression<String> expresion = root.get(key).as(String.class);
+//                    Predicate predicado = criteriaBuilder.like(criteriaBuilder.lower(expresion), "%" + val.toString().toLowerCase() + "%");
+//                    predicados.add(predicado);
+//
+//                }
+//            });
+//            if (predicados.size() > 0) {
+//                criteriaQuery.where(criteriaBuilder.and(predicados.toArray(new Predicate[predicados.size()])));
+//            }
+//        }
+//        // Creamos la consulta
+//        TypedQuery<Carreras> consulta = em.createQuery(select);
+//        consulta.setFirstResult(start);
+//        consulta.setMaxResults(size);
+//
+//        return consulta.getResultList();
+//
+//    }
 //    @Override
 //    public List<Carreras> findByParams(int start, int size, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
 //        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
@@ -117,6 +165,29 @@ public class CarrerasFacade extends AbstractFacade<Carreras> implements Carreras
 //    }
     @Override
     public int getFilteredRowCount(Map<String, Object> filters) {
+        String nombreCarrera = "";
+        String nombreFacultad = "";
+        
+        if (filters.get("nombre") != null) {
+            nombreCarrera = (String) filters.get("nombre");
+        }
+
+        if (filters.get("idfacultad") != null) {
+            nombreFacultad = (String) filters.get("idfacultad");
+        }
+        nombreCarrera = "%" + nombreCarrera.toLowerCase() + "%";
+        nombreFacultad = "%" + nombreFacultad.toLowerCase() + "%";
+
+        Query query = em.createQuery("Select count(e.idcarrera) From Carreras e WHERE lower(e.nombre) LIKE ?1 OR lower(e.idfacultad.nombre) LIKE ?2");
+        query.setParameter(1, nombreCarrera);
+        query.setParameter(2, nombreFacultad);
+
+        return ((Long) query.getSingleResult()).intValue();
+
+    }
+
+//    @Override
+//    public int getFilteredRowCount(Map<String, Object> filters) {
 //        CriteriaBuilder cb = em.getCriteriaBuilder();
 //        CriteriaQuery<Long> criteriaQuery = cb.createQuery(Long.class);
 //        Root<Carreras> root = criteriaQuery.from(Carreras.class);
@@ -141,9 +212,8 @@ public class CarrerasFacade extends AbstractFacade<Carreras> implements Carreras
 //        }
 //        Long count = em.createQuery(select).getSingleResult();
 //        return count.intValue();
-        return 44;
-    }
-
+//
+//    }
     @Override
     public List<Carreras> findByNameLike(String nombrecarrera) {
         Query query = em.createQuery("SELECT c FROM Carreras c WHERE lower(c.nombre) like :nombre");
