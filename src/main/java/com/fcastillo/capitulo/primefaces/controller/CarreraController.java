@@ -1,4 +1,3 @@
-
 package com.fcastillo.capitulo.primefaces.controller;
 
 import com.fcastillo.capitulo.primefaces.Carreras;
@@ -9,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import org.primefaces.model.LazyDataModel;
@@ -62,8 +63,9 @@ public class CarreraController implements Serializable {
         lstCarrerasLazyModel = new LazyDataModel<Carreras>() {
             @Override
             public List<Carreras> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-                List<Carreras> lstCarreras = carreraFacade.findByParams(first, pageSize, sortField, sortOrder.ASCENDING, filters);
+                List<Carreras> lstCarreras = carreraFacade.findByParams(first, pageSize, sortField, sortOrder, filters);
                 lstCarrerasLazyModel.setRowCount(carreraFacade.getFilteredRowCount(filters));
+                refreshTableState();
                 return lstCarreras;
             }
         };
@@ -81,5 +83,11 @@ public class CarreraController implements Serializable {
             System.out.println("completeNombreCarrera() " + e.getLocalizedMessage());
         }
         return sugerencias;
+    }
+
+    private void refreshTableState() {
+        UIComponent tabla = FacesContext.getCurrentInstance().getViewRoot().findComponent(":frmPrincipal:tblCarreras");
+        tabla.setValueExpression("sortBy", null);
+
     }
 }

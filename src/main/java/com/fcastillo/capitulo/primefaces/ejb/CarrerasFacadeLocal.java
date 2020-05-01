@@ -34,6 +34,16 @@ public interface CarrerasFacadeLocal {
 
     int count();
 
+    /**
+     * Carga en memoria solo los registros que se necesiten y no todo el conjunto de datos. Cuenta con paginación, filtrado y ordenamiento de datos.
+     *
+     * @param start Primer página a mostrar.
+     * @param size Cantidad de registros a mostrar por página.
+     * @param sortField Campos por los que se desea ordenar los registros.
+     * @param sortOrder Tipo de ordenamiento de los registros (Ascending - Descending).
+     * @param filters Map de filtros.
+     * @return Registros a mostrar.
+     */
     List<Carreras> findByParams(int start, int size, String sortField, SortOrder sortOrder, Map<String, Object> filters);
 
     int getFilteredRowCount(Map<String, Object> filters);
