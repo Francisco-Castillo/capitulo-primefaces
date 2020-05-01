@@ -29,6 +29,7 @@ public class CarreraController implements Serializable {
     private LazyDataModel<Carreras> lstCarrerasLazyModel;
     private List<Carreras> lstCarreras;
     private Carreras carrera = new Carreras();
+    private Carreras carreraSeleccionada;
 
     public LazyDataModel<Carreras> getLstCarrerasLazyModel() {
         return lstCarrerasLazyModel;
@@ -54,6 +55,14 @@ public class CarreraController implements Serializable {
         this.carrera = carrera;
     }
 
+    public Carreras getCarreraSeleccionada() {
+        return carreraSeleccionada;
+    }
+
+    public void setCarreraSeleccionada(Carreras carreraSeleccionada) {
+        this.carreraSeleccionada = carreraSeleccionada;
+    }
+
     @PostConstruct
     public void init() {
         iniciarLazyLoading();
@@ -67,6 +76,17 @@ public class CarreraController implements Serializable {
                 lstCarrerasLazyModel.setRowCount(carreraFacade.getFilteredRowCount(filters));
                 refreshTableState();
                 return lstCarreras;
+            }
+
+            @Override
+            public Object getRowKey(Carreras object) {
+                return object.getIdcarrera();
+            }
+
+            @Override
+            public Carreras getRowData(String rowKey) {
+                Carreras carrera = carreraFacade.find(Integer.parseInt(rowKey));
+                return carrera;
             }
         };
     }

@@ -5,9 +5,15 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
   <h:head>
-    <title>DataTable Lazy Loading</title>
+    <title>DataTable con carga diferida</title>
   </h:head>
   <h:body>
+    <style>
+      .ui-blockui {
+        position : fixed;
+      }
+    </style>
+
     <div class="ui-g">
       <div class="ui-lg-12">
         <h:form id="frmPrincipal">
@@ -15,6 +21,8 @@
                        value="#{carreraController.lstCarrerasLazyModel}" 
                        var="c"
                        rowKey="#{c.idcarrera}"
+                       selection="#{carreraController.carreraSeleccionada}"
+                       selectionMode="single"
                        rows="10"
                        reflow="true"
                        paginator="true"
@@ -39,14 +47,20 @@
               <h:outputText value="#{c.tipo eq 2 ? 'Grado' : 'Pre grado'}"/>
             </p:column>
             <p:column field="idfacultad" 
-                      headerText="Facultad" filterBy="#{c.idfacultad}"
+                      headerText="Facultad"
+                      sortBy="#{c.idfacultad.nombre}"
+                      filterBy="#{c.idfacultad}"
                       style="text-align: center;">
               <h:outputText value="#{c.idfacultad.nombre}"/>
             </p:column>
             <f:facet name="footer">
-              Total de registros: #{carreraController.lstCarrerasLazyModel.rowCount}
+
             </f:facet>
           </p:dataTable>
+
+          <!--Bloquea la pantalla mientras se actualiza la tabla carreras-->
+          <p:blockUI block="tblCarreras" trigger="tblCarreras"/>
+
         </h:form>
       </div>
     </div>
