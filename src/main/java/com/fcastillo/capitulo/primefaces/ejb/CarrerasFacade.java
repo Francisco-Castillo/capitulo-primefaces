@@ -165,24 +165,43 @@ public class CarrerasFacade extends AbstractFacade<Carreras> implements Carreras
 //    }
     @Override
     public int getFilteredRowCount(Map<String, Object> filters) {
-        String nombreCarrera = "";
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Carreras> criteriaQuery = criteriaBuilder.createQuery(Carreras.class);
+
+        Root<Carreras> raiz = criteriaQuery.from(Carreras.class);
+        Join<Carreras, Facultades> joinFacultad = raiz.join("idfacultad", JoinType.INNER);
+
+        List<Predicate> listaPredicados = new ArrayList<>();
+        List<Carreras> lstCarreras = new ArrayList<>();
+
+        criteriaQuery.select(raiz);
+
         String nombreFacultad = "";
-        
-        if (filters.get("nombre") != null) {
-            nombreCarrera = (String) filters.get("nombre");
+        String nombreCarrera = "";
+        if (filters != null && filters.size() > 0) {
+            if (filters.get("nombre") != null) {
+                nombreCarrera = (String) filters.get("nombre");
+                Predicate predicadoNombre = criteriaBuilder.like(criteriaBuilder.lower(raiz.get("nombre")), "%" + nombreCarrera.toLowerCase() + "%");
+                listaPredicados.add(predicadoNombre);
+            }
+
+            if (filters.get("idfacultad") != null) {
+                nombreFacultad = (String) filters.get("idfacultad");
+                Predicate predicadoFacultad = criteriaBuilder.like(criteriaBuilder.lower(joinFacultad.get("nombre")), "%" + nombreFacultad.toLowerCase() + "%");
+                listaPredicados.add(predicadoFacultad);
+            }
+
+            if (listaPredicados.size() > 0) {
+                listaPredicados.forEach((p) -> {
+                    System.out.println("Predicado : " + p.getExpressions().toString());
+                    criteriaQuery.where(listaPredicados.toArray(new Predicate[listaPredicados.size()]));
+                });
+            }
         }
 
-        if (filters.get("idfacultad") != null) {
-            nombreFacultad = (String) filters.get("idfacultad");
-        }
-        nombreCarrera = "%" + nombreCarrera.toLowerCase() + "%";
-        nombreFacultad = "%" + nombreFacultad.toLowerCase() + "%";
+        TypedQuery<Carreras> query = em.createQuery(criteriaQuery);
 
-        Query query = em.createQuery("Select count(e.idcarrera) From Carreras e WHERE lower(e.nombre) LIKE ?1 OR lower(e.idfacultad.nombre) LIKE ?2");
-        query.setParameter(1, nombreCarrera);
-        query.setParameter(2, nombreFacultad);
-
-        return ((Long) query.getSingleResult()).intValue();
+        return query.getResultList().size();
 
     }
 
