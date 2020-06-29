@@ -6,6 +6,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.component.UIComponent;
@@ -85,7 +87,12 @@ public class CarreraController implements Serializable {
 
             @Override
             public Carreras getRowData(String rowKey) {
-                Carreras carrera = carreraFacade.find(Integer.parseInt(rowKey));
+                Carreras carrera = null;
+                try {
+                    carrera = carreraFacade.find(Integer.parseInt(rowKey));
+                } catch (Exception e) {
+                    System.out.println("ocurrio un error : " + e.getLocalizedMessage());
+                }
                 return carrera;
             }
         };
