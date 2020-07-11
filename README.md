@@ -3,6 +3,7 @@
 Este capitulo contiene ejemplos de algunos componentes de la libreria Primefaces
 
 ![estado](https://img.shields.io/badge/estado-activo-success) ![basededatos](https://img.shields.io/badge/base%20de%20datos-si-success) ![commits](https://img.shields.io/badge/commits-13-informational)
+[![Captura-de-pantalla-de-2020-07-11-20-24-20.png](https://i.postimg.cc/pTF02j9f/Captura-de-pantalla-de-2020-07-11-20-24-20.png)](https://postimg.cc/JDR3xG50)
 
 ## Contenido
 - Autocomplete
@@ -13,7 +14,7 @@ Este capitulo contiene ejemplos de algunos componentes de la libreria Primefaces
 - SelectOneMenu
 - SelectOneMenu dependiente o relacionado
 - Gráfico de barras
-- Gráfico de torta
+- Gráfico circular
 
 ## Pre-requisitos :pushpin:
 
