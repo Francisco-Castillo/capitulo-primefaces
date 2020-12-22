@@ -20,7 +20,7 @@
           <p:dataTable id="tblCarreras"
                        value="#{carreraController.lstCarrerasLazyModel}" 
                        var="c"
-                       rowKey="#{c.idcarrera}"
+                       rowKey="#{c.idCarrera}"
                        selection="#{carreraController.carreraSeleccionada}"
                        selectionMode="single"
                        rows="10"
@@ -35,7 +35,7 @@
               Listado de carreras
             </f:facet>
             <p:column headerText="Cod." style="width: 5%;text-align: center;">
-              <h:outputText value="#{c.idcarrera}"/>
+              <h:outputText value="#{c.idCarrera}"/>
             </p:column>
             <p:column headerText="Nombre"
                       field="nombre"
@@ -46,12 +46,12 @@
             <p:column headerText="Tipo" style="width: 5%;text-align: center;">
               <h:outputText value="#{c.tipo eq 2 ? 'Grado' : 'Pre grado'}"/>
             </p:column>
-            <p:column field="idfacultad" 
+            <p:column field="idFacultad" 
                       headerText="Facultad"
-                      sortBy="#{c.idfacultad.nombre}"
-                      filterBy="#{c.idfacultad}"
+                      sortBy="#{c.idFacultad.nombre}"
+                      filterBy="#{c.idFacultad}"
                       style="text-align: center;">
-              <h:outputText value="#{c.idfacultad.nombre}"/>
+              <h:outputText value="#{c.idFacultad.nombre}"/>
             </p:column>
           </p:dataTable>
 

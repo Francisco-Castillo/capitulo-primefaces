@@ -5,10 +5,11 @@
  */
 package com.fcastillo.capitulo.primefaces.ejb;
 
-import com.fcastillo.capitulo.primefaces.Carreras;
+import com.fcastillo.capitulo.primefaces.Carrera;
 import java.util.List;
 import java.util.Map;
 import javax.ejb.Local;
+import org.primefaces.model.FilterMeta;
 import org.primefaces.model.SortOrder;
 
 /**
@@ -16,37 +17,37 @@ import org.primefaces.model.SortOrder;
  * @author fcastillo
  */
 @Local
-public interface CarrerasFacadeLocal {
+public interface CarreraFacadeLocal {
 
-    void create(Carreras carreras);
+    void create(Carrera carreras);
 
-    void edit(Carreras carreras);
+    void edit(Carrera carreras);
 
-    void remove(Carreras carreras);
+    void remove(Carrera carreras);
 
-    Carreras find(Object id);
+    Carrera find(Object id);
 
-    List<Carreras> findAll();
+    List<Carrera> findAll();
 
-    List<Carreras> findByFacultad(int idfacultad);
+    List<Carrera> findByFacultad(int idfacultad);
 
-    List<Carreras> findRange(int[] range);
+    List<Carrera> findRange(int[] range);
 
     int count();
 
     /**
      * Carga en memoria solo los registros que se necesiten y no todo el conjunto de datos. Cuenta con paginación, filtrado y ordenamiento de datos.
      *
-     * @param start Primer página a mostrar.
-     * @param size Cantidad de registros a mostrar por página.
+     * @param first Primer página a mostrar.
+     * @param pageSize  Cantidad de registros a mostrar por página.
      * @param sortField Campos por los que se desea ordenar los registros.
      * @param sortOrder Tipo de ordenamiento de los registros (Ascending - Descending).
-     * @param filters Map de filtros.
+     * @param filterBy  Map de filtros.
      * @return Registros a mostrar.
      */
-    List<Carreras> findByParams(int start, int size, String sortField, SortOrder sortOrder, Map<String, Object> filters);
+    List<Carrera> findByParams(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, FilterMeta> filterBy);
 
-    int getFilteredRowCount(Map<String, Object> filters);
+    int getCount(Map<String, FilterMeta> filterBy);
 
-    List<Carreras> findByNameLike(String nombrecarrera);
+    List<Carrera> findByNameLike(String nombrecarrera);
 }

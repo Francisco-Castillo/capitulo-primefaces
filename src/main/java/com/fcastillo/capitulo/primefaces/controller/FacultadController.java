@@ -1,9 +1,7 @@
 package com.fcastillo.capitulo.primefaces.controller;
 
-import com.fcastillo.capitulo.primefaces.Carreras;
-import com.fcastillo.capitulo.primefaces.Facultades;
-import com.fcastillo.capitulo.primefaces.ejb.CarrerasFacadeLocal;
-import com.fcastillo.capitulo.primefaces.ejb.FacultadesFacadeLocal;
+import com.fcastillo.capitulo.primefaces.Carrera;
+import com.fcastillo.capitulo.primefaces.Facultad;
 import com.fcastillo.capitulo.primefaces.utilidades.Utilidades;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,6 +11,8 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import org.primefaces.model.LazyDataModel;
+import com.fcastillo.capitulo.primefaces.ejb.CarreraFacadeLocal;
+import com.fcastillo.capitulo.primefaces.ejb.FacultadFacadeLocal;
 
 /**
  *
@@ -23,46 +23,46 @@ import org.primefaces.model.LazyDataModel;
 public class FacultadController implements Serializable {
 
     @EJB
-    FacultadesFacadeLocal facultadFacade;
+    FacultadFacadeLocal facultadFacade;
     @EJB
-    CarrerasFacadeLocal carreraFacade;
+    CarreraFacadeLocal carreraFacade;
 
-    private List<Facultades> lstFacultades;
-    private List<Carreras> lstCarreras;
-    private LazyDataModel<Carreras> lstCarrerasLazyModel;
-    private Facultades facultad = new Facultades();
-    private Carreras carrera = new Carreras();
+    private List<Facultad> lstFacultades;
+    private List<Carrera> lstCarreras;
+    private LazyDataModel<Carrera> lstCarrerasLazyModel;
+    private Facultad facultad = new Facultad();
+    private Carrera carrera = new Carrera();
     private int idfacultad;
 
-    public List<Facultades> getLstFacultades() {
+    public List<Facultad> getLstFacultades() {
         return lstFacultades;
     }
 
-    public void setLstFacultades(List<Facultades> lstFacultades) {
+    public void setLstFacultades(List<Facultad> lstFacultades) {
         this.lstFacultades = lstFacultades;
     }
 
-    public Facultades getFacultad() {
+    public Facultad getFacultad() {
         return facultad;
     }
 
-    public void setFacultad(Facultades facultad) {
+    public void setFacultad(Facultad facultad) {
         this.facultad = facultad;
     }
 
-    public List<Carreras> getLstCarreras() {
+    public List<Carrera> getLstCarreras() {
         return lstCarreras;
     }
 
-    public void setLstCarreras(List<Carreras> lstCarreras) {
+    public void setLstCarreras(List<Carrera> lstCarreras) {
         this.lstCarreras = lstCarreras;
     }
 
-    public Carreras getCarrera() {
+    public Carrera getCarrera() {
         return carrera;
     }
 
-    public void setCarrera(Carreras carrera) {
+    public void setCarrera(Carrera carrera) {
         this.carrera = carrera;
     }
 
@@ -74,34 +74,35 @@ public class FacultadController implements Serializable {
         this.idfacultad = idfacultad;
     }
 
-    public LazyDataModel<Carreras> getLstCarrerasLazyModel() {
+    public LazyDataModel<Carrera> getLstCarrerasLazyModel() {
         return lstCarrerasLazyModel;
     }
 
-    public void setLstCarrerasLazyModel(LazyDataModel<Carreras> lstCarrerasLazyModel) {
+    public void setLstCarrerasLazyModel(LazyDataModel<Carrera> lstCarrerasLazyModel) {
         this.lstCarrerasLazyModel = lstCarrerasLazyModel;
     }
 
     @PostConstruct
     public void init() {
         lstFacultades = facultadFacade.findAll();
+      
     }
 
     /**
      * Metodo que permite listar todas las carreras de una determinada facultad.
      */
     public void handleFacultad() {
-        lstCarreras = carreraFacade.findByFacultad(facultad.getIdfacultad());
+        lstCarreras = carreraFacade.findByFacultad(facultad.getIdFacultad());
     }
 
-    public List<Facultades> completeWithInsert(String query) {
-        List<Facultades> sugerencias = new ArrayList<>();
+    public List<Facultad> completeWithInsert(String query) {
+        List<Facultad> sugerencias = new ArrayList<>();
         try {
             sugerencias = facultadFacade.findByNameLike(query);
             if (sugerencias == null || sugerencias.isEmpty()) {
                 if (Utilidades.espaciosFinales(query) >= 2) {
                     query = query.trim();
-                    Facultades facultad = new Facultades();
+                    Facultad facultad = new Facultad();
                     facultad.setNombre(query);
                     facultadFacade.create(facultad);
                     System.out.println("Facultad insertada...");

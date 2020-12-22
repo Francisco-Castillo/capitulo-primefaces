@@ -1,30 +1,30 @@
 package com.fcastillo.capitulo.primefaces.converter;
 
-import com.fcastillo.capitulo.primefaces.Carreras;
-import com.fcastillo.capitulo.primefaces.Facultades;
-import com.fcastillo.capitulo.primefaces.ejb.CarrerasFacadeLocal;
-import com.fcastillo.capitulo.primefaces.ejb.FacultadesFacadeLocal;
+import com.fcastillo.capitulo.primefaces.Carrera;
+import com.fcastillo.capitulo.primefaces.Facultad;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.inject.Named;
+import com.fcastillo.capitulo.primefaces.ejb.CarreraFacadeLocal;
+import com.fcastillo.capitulo.primefaces.ejb.FacultadFacadeLocal;
 
 @Named
 @RequestScoped
 public class CarreraConverter implements Converter {
 
     @EJB
-    CarrerasFacadeLocal carreraFacade;
+    CarreraFacadeLocal carreraFacade;
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
-        Carreras carrera = new Carreras();
+        Carrera carrera = new Carrera();
         try {
             if (value != null) {
-                carrera.setIdcarrera(Integer.parseInt(value));
-                carrera = carreraFacade.find(carrera.getIdcarrera());
+                carrera.setIdCarrera(Integer.parseInt(value));
+                carrera = carreraFacade.find(carrera.getIdCarrera());
             }
         } catch (NumberFormatException e) {
             System.out.println("No se encontro la facultad " + e);
@@ -34,18 +34,18 @@ public class CarreraConverter implements Converter {
 
     @Override
     public String getAsString(FacesContext context, UIComponent component, Object value) {
-        String r = "";
+        String carreraString = "";
         try {
-            if (value instanceof Carreras) {
-                Carreras l = (Carreras) value;
-                r = String.valueOf(l.getIdcarrera());
+            if (value instanceof Carrera) {
+                Carrera carrera = (Carrera) value;
+                carreraString = String.valueOf(carrera.getIdCarrera());
             } else if (value instanceof String) {
-                r = (String) value;
+                carreraString = (String) value;
             }
         } catch (Exception e) {
             //JsfUtil.errorMessage("getAsString()" + e.getLocalizedMessage());
         }
-        return r;
+        return carreraString;
     }
 
 }

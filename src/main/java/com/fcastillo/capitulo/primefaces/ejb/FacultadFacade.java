@@ -5,7 +5,7 @@
  */
 package com.fcastillo.capitulo.primefaces.ejb;
 
-import com.fcastillo.capitulo.primefaces.Facultades;
+import com.fcastillo.capitulo.primefaces.Facultad;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -17,7 +17,7 @@ import javax.persistence.Query;
  * @author fcastillo
  */
 @Stateless
-public class FacultadesFacade extends AbstractFacade<Facultades> implements FacultadesFacadeLocal {
+public class FacultadFacade extends AbstractFacade<Facultad> implements FacultadFacadeLocal {
 
     @PersistenceContext(unitName = "com.fcastillo_capitulo-primefaces_war_1.0-SNAPSHOTPU")
     private EntityManager em;
@@ -27,13 +27,13 @@ public class FacultadesFacade extends AbstractFacade<Facultades> implements Facu
         return em;
     }
 
-    public FacultadesFacade() {
-        super(Facultades.class);
+    public FacultadFacade() {
+        super(Facultad.class);
     }
 
     @Override
-    public List<Facultades> findByNameLike(String nombrefacultad) {
-        Query query = em.createQuery("SELECT f FROM Facultades f WHERE lower(f.nombre) like :nombre");
+    public List<Facultad> findByNameLike(String nombrefacultad) {
+        Query query = em.createQuery("SELECT f FROM Facultad f WHERE lower(f.nombre) like :nombre");
         nombrefacultad = "%" + nombrefacultad.trim() + "%";
         return query.setParameter("nombre", nombrefacultad).getResultList();
     }
